@@ -1,20 +1,21 @@
-/* -------------------------- background.js ------------------------- */
 import { getSnippets } from './storage/snippetsStore.js';
 
 function rebuildContextMenu() {
   chrome.contextMenus.removeAll(() => {
+    // Menú raíz
     chrome.contextMenus.create({
       id: 'clippingsRoot',
-      title: 'PasteCore Snippets',
+      title: 'PasteCore',
       contexts: ['editable']
     }, () => {
       if (chrome.runtime.lastError) {
         console.warn('Error creating clippingsRoot:', chrome.runtime.lastError.message);
       }
 
+      // Opción para guardar selección como snippet
       chrome.contextMenus.create({
         id: 'saveSelection',
-        title: 'Save selection as snippet',
+        title: 'Save selection',
         contexts: ['selection']
       }, () => {
         if (chrome.runtime.lastError) {
@@ -22,13 +23,54 @@ function rebuildContextMenu() {
         }
       });
 
+      // Obtener y procesar snippets y folders
       getSnippets().then(snippets => {
+        // Mapeo de folders: nombre -> [índices de snippets]
+        const folderSnippets = {};
+        const folderIds = {};
         snippets.forEach((snippet, idx) => {
-          const title = snippet.title || `Snippet ${idx}`;
+          // Es un folder (snippet.text === '')
+          if (snippet.text === '') {
+            const folderName = snippet.title.replace('Folder:', '').trim();
+            folderSnippets[folderName] = [];
+          }
+        });
+        snippets.forEach((snippet, idx) => {
+          if (snippet.text === '') return; // No agregar el propio folder como hijo
+          if (snippet.folder && snippet.folder.trim() && snippet.folder in folderSnippets) {
+            folderSnippets[snippet.folder].push(idx);
+          }
+        });
+
+        // Crear los folders como submenús SOLO si tienen hijos
+        Object.entries(folderSnippets).forEach(([folderName, indices]) => {
+          if (indices.length === 0) return; // No crear si está vacío
+          const folderId = `folder_${folderName.replace(/\s+/g, '_')}`;
+          folderIds[folderName] = folderId;
+          chrome.contextMenus.create({
+            id: folderId,
+            parentId: 'clippingsRoot',
+            // Puedes personalizar el emoji aquí
+            title: `📁 ${folderName}`,
+            contexts: ['editable']
+          }, () => {
+            if (chrome.runtime.lastError) {
+              console.warn(`Menu creation failed for ${folderId}:`, chrome.runtime.lastError.message);
+            }
+          });
+        });
+
+        // Crear los snippets: van al folder si aplica, o a raíz si no tienen folder válido
+        snippets.forEach((snippet, idx) => {
+          if (snippet.text === '') return;
+          let parentId = 'clippingsRoot';
+          if (snippet.folder && snippet.folder.trim() && folderIds[snippet.folder]) {
+            parentId = folderIds[snippet.folder];
+          }
           chrome.contextMenus.create({
             id: `clip_${idx}`,
-            parentId: 'clippingsRoot',
-            title,
+            parentId,
+            title: snippet.title,
             contexts: ['editable']
           }, () => {
             if (chrome.runtime.lastError) {
@@ -41,6 +83,7 @@ function rebuildContextMenu() {
   });
 }
 
+// Listeners igual que antes
 chrome.runtime.onInstalled.addListener(() => {
   rebuildContextMenu();
 });
