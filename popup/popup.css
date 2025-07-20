@@ -1,0 +1,102 @@
+:root {
+  --bg: #ffffff;
+  --text: #1e2a33;
+  --accent: #00bcd4;
+  --hover: #e0f7fa;
+  --border: #b2ebf2;
+  font-size: 16px;
+}
+
+[data-theme="dark"] {
+  --bg: #1a1a1a;
+  --text: #e0f7fa;
+  --accent: #26c6da;
+  --hover: #263238;
+  --border: #37474f;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, sans-serif;
+  width: 420px;
+  height: 500px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar button {
+  background: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 6px;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+main {
+  max-height: 440px;
+  overflow-y: auto;
+}
+
+.snippet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.snippet:hover { background: var(--hover); }
+.snippet-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+}
+.snippet-meta {
+  font-size: 12px;
+  margin-left: 6px;
+  color: var(--accent);
+}
+
+#snippetModal {
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 6px;
+  width: 95%;
+}
+
+#snippetModal input, #snippetModal textarea {
+  width: 100%;
+  margin-bottom: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.preview-tooltip {
+  position: fixed;
+  display: none;
+  background: var(--bg);
+  color: var(--text);
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-width: 300px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 9999;
+  font-size: 14px;
+  white-space: pre-wrap;
+  pointer-events: none;
+}

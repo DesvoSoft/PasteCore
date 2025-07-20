@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PasteCore</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body data-theme="dark">
+  <header>
+    <h1>PasteCore</h1>
+    <div class="toolbar">
+      <button id="settingsBtn" title="Settings">⚙️</button>
+      <button id="addGroupBtn" title="New Folder">📁</button>
+      <button id="addBtn" title="New Snippet">Add＋</button>
+    </div>
+  </header>
+
+  <main id="list"></main>
+
+  <dialog id="snippetModal">
+    <form method="dialog">
+      <label>Title<br><input id="modalTitle" required /></label><br>
+      <label>Content<br><textarea id="modalText" required></textarea></label><br>
+      <input id="folder" class="form-control" />
+      <menu>
+        <button type="submit" id="saveSnippet">Save</button>
+        <button type="reset" id="cancelSnippet">Cancel</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="settingsModal">
+    <form method="dialog">
+      <h2>Settings</h2>
+      <button type="button" id="exportBtn">Export snippets</button><br><br>
+      <button type="button" id="importBtn">Import snippets</button><br><br>
+      <input type="file" id="importFile" style="display: none">
+      <button type="settingsCloseBtn">Close</button>
+    </form>
+  </dialog>
+
+  <div id="tooltip" class="preview-tooltip"></div>
+
+  <script type="module" src="./popup.js"></script>
+</body>
+</html>
