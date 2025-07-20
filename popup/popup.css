@@ -5,14 +5,15 @@
   --hover: #263238;
   --border: #3bc6ff;
   --neon: 0 0 8px #00fff7, 0 0 16px #00fff7;
-  --radius: 14px;
+  --radius: 7px;
   --shadow: 0 4px 32px rgba(0,255,247,0.09);
   font-size: 16px;
 }
+
 body.theme-neutral {
-  --bg: #1d1e24;
+  --bg: #23242a;
   --text: #e6e7ea;
-  --accent: #72b9ea;
+  --accent: #7ca7c8;
   --hover: #26282d;
   --border: #8ca2c8;
   --neon: none;
@@ -26,6 +27,7 @@ body.theme-light {
   --neon: none;
 }
 
+/* General */
 body {
   margin: 0;
   background: var(--bg);
@@ -40,7 +42,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
+  padding: 20px 20px;
   border-bottom: 2px solid var(--border);
   background: #15172a;
   border-radius: var(--radius) var(--radius) 0 0;
@@ -48,31 +50,43 @@ header {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   letter-spacing: 2px;
   color: var(--accent);
   margin: 0;
   text-shadow: var(--neon);
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+h1::before {
+  /* content: ""; */
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+  background: url('./assets/icon32.png') no-repeat center/cover;
+  filter: drop-shadow(0 0 6px #00fff7);
+  vertical-align: middle;
 }
 
 #themeSelect {
-  margin-left: 5px;
+  margin-left: 10px;
   background: var(--bg);
   color: var(--accent);
   border: 1.5px solid var(--border);
-  border-radius: 4px;
-  padding: 5px;
+  border-radius: 8px;
+  padding: 2px 7px;
   font-size: 1em;
 }
 
 .toolbar button {
   background: #141622;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   cursor: pointer;
-  font-size: 14px;
-  margin-left: 0px;
+  font-size: 18px;
+  margin-left: 4px;
   border-radius: 10%;
   padding: 6px 8px;
   color: var(--accent);
@@ -152,7 +166,7 @@ main {
 }
 
 /* MODALES AJUSTADOS Y SIN SCROLL HORIZONTAL */
-dialog#snippetModal, dialog#settingsModal {
+dialog#snippetModal, dialog#settingsModal, dialog#folderModal {
   min-width: 320px;
   width: 92vw;
   max-width: 380px;
@@ -161,14 +175,46 @@ dialog#snippetModal, dialog#settingsModal {
   transform: translateX(-50%) !important;
   margin: 0 auto !important;
   font-size: 1rem;
-  color: white;
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--accent);
   overflow-x: hidden;
+}
+
+body.theme-light dialog#snippetModal,
+body.theme-light dialog#settingsModal,
+body.theme-light dialog#folderModal {
+  color: #1e2a33 !important;
+  background: #f7fafc !important;
+}
+body.theme-light #snippetModal input,
+body.theme-light #snippetModal textarea,
+body.theme-light #snippetModal select,
+body.theme-light #folderModal input {
+  color: #1e2a33 !important;
+  background: #fff !important;
+  border-color: #aac9e6 !important;
+}
+
+body.theme-neutral dialog#snippetModal,
+body.theme-neutral dialog#settingsModal,
+body.theme-neutral dialog#folderModal {
+  color: #e6e7ea !important;
+  background: #23242a !important;
+}
+
+body:not(.theme-neutral):not(.theme-light) dialog#snippetModal,
+body:not(.theme-neutral):not(.theme-light) dialog#settingsModal,
+body:not(.theme-neutral):not(.theme-light) dialog#folderModal {
+  color: #e0f7fa !important;
+  background: #171a27 !important;
 }
 
 /* Inputs y selects */
 #snippetModal input,
 #snippetModal textarea,
-#snippetModal select {
+#snippetModal select,
+#folderModal input {
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -185,18 +231,19 @@ dialog#snippetModal, dialog#settingsModal {
 }
 #snippetModal input:focus,
 #snippetModal textarea:focus,
-#snippetModal select:focus {
+#snippetModal select:focus,
+#folderModal input:focus {
   border: 1.5px solid var(--accent);
   box-shadow: 0 0 10px #00fff799;
 }
 
-#snippetModal menu {
+#snippetModal menu, #folderModal menu {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
 }
 
-#snippetModal button {
+#snippetModal button, #folderModal button {
   background: var(--accent);
   color: #171a27;
   font-weight: 600;
@@ -208,7 +255,8 @@ dialog#snippetModal, dialog#settingsModal {
   box-shadow: 0 0 10px #00fff788;
   transition: background 0.18s, color 0.18s;
 }
-#snippetModal button:hover, #snippetModal button:focus {
+#snippetModal button:hover, #snippetModal button:focus,
+#folderModal button:hover, #folderModal button:focus {
   background: #00aebc;
   color: #fff;
 }
@@ -270,7 +318,7 @@ dialog#snippetModal, dialog#settingsModal {
   background: #00fff7;
   color: #141622;
   padding: 10px 22px;
-  border-radius: 8px;
+  border-radius: 16px;
   font-weight: bold;
   box-shadow: 0 2px 20px #00fff799;
   opacity: 0;

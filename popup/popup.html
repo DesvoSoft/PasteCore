@@ -7,7 +7,6 @@
 </head>
 <body data-theme="dark">
   <header>
-    <img src="../assets/icon128.png" style="height:32px;margin-right:0px;border-radius:10px;box-shadow:0 0 10px #26c6da;">
     <h1>PasteCore</h1>
     <div class="toolbar">
       <button id="settingsBtn" title="Settings">⚙️</button>
@@ -17,14 +16,21 @@
   </header>
 
   <main id="list"></main>
+
   <div id="toast" class="toast"></div>
 
+  <!-- Modal para SNIPPETS -->
   <dialog id="snippetModal">
     <form method="dialog">
-      <label>Title<br><input id="modalTitle" required /></label><br>
-      <label>Content<br><textarea id="modalText" required></textarea></label><br>
-      <!-- Corregido aquí: -->
-      <input id="modalFolder" class="form-control" />
+      <label for="modalTitle">Title<br>
+        <input id="modalTitle" required />
+      </label><br>
+      <label for="modalText">Content<br>
+        <textarea id="modalText" required></textarea>
+      </label><br>
+      <label for="modalFolder">Folder<br>
+        <input id="modalFolder" class="form-control" />
+      </label><br>
       <menu>
         <button type="submit" id="saveSnippet">Save</button>
         <button type="reset" id="cancelSnippet">Cancel</button>
@@ -32,23 +38,34 @@
     </form>
   </dialog>
 
+  <!-- Modal para FOLDERS -->
+  <dialog id="folderModal">
+    <form method="dialog">
+      <label for="folderTitle">Folder name<br>
+        <input id="folderTitle" required />
+      </label><br>
+      <menu>
+        <button type="submit" id="saveFolder">Save</button>
+        <button type="reset" id="cancelFolder">Cancel</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <!-- Modal de ajustes -->
   <dialog id="settingsModal">
     <form method="dialog">
       <h2>Settings</h2>
       <button type="button" id="exportBtn">Export snippets</button><br><br>
       <button type="button" id="importBtn">Import snippets</button><br><br>
       <input type="file" id="importFile" style="display: none">
-
-      <h3>UI Style</h3>
-      <select id="themeSelect" style="margin-left:10px;">
+      
+      <label>Theme</label>
+      <select id="themeSelect" title="Change Theme">
         <option value="neon">Neon</option>
         <option value="neutral">Neutral</option>
         <option value="light">Light</option>
       </select>
-      <br>
-      <br>
-      <br>
-      <!-- Corregido aquí: -->
+      <br><br>
       <button type="button" id="settingsCloseBtn">Close</button>
     </form>
   </dialog>
