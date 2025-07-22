@@ -1,7 +1,8 @@
 # PasteCore
 
-**PasteCore** is a lightweight Chrome extension to **save, organize, and instantly paste reusable snippets** of text, code, and notes. Manage your library of snippets with folders, quick import/export, and a clean interface. Instantly paste your snippets from the popup or right-click menu anywhere you type.
+**PasteCore** is a web extension to **save, organize, and instantly paste reusable snippets** of text, code, and notes. Manage your library of snippets with folders, quick import/export, and a clean interface. Instantly paste your snippets from the popup or right-click menu anywhere you type.
 
+Tested and working on Chrome, Opera GX, Microsoft Edge.
 ---
 
 ## Features
@@ -20,7 +21,7 @@
 2. **Manual Installation**
 
    1. Download or clone this repository.
-   2. Go to `chrome://extensions/` in your browser.
+   2. Go to extensios page in your browser, for example: `chrome://extensions/`.
    3. Enable **Developer Mode**.
    4. Click **Load unpacked** and select the project folder.
 
@@ -30,7 +31,7 @@
 
 * Click the **PasteCore** icon to open the popup and manage your snippets.
 * Use the **right-click menu** in any editable or text field to quickly paste and also save texts.
-* Organize snippets in folders, or edit via the popup dialog.
+* Organize snippets in folders, or edit via the popup dialog by using right-click in the snippet.
 * Import/export your collection from the **Settings** dialog (⚙️).
 
 ---
